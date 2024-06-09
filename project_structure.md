@@ -4,7 +4,7 @@
 UNN Mobile - это мобильное приложение, разработанное с использованием фреймворка Flutter. Приложение предназначено для предоставления пользователям расписания и других функциональных возможностей, связанных с университетом.
 
 ## Структура проекта
-![Иллюстрация к проекту](https://github.com/jon/coolproject/raw/master/image/image.png](https://github.com/GERONlMO/Pocket_Portal/blob/projectStructure/assets/png/project_structure.png)
+![Иллюстрация к проекту](https://github.com/GERONlMO/Pocket_Portal/blob/projectStructure/assets/png/project_structure.png)
 
 ### MyApp
 - **Методы:**
