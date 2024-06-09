@@ -37,7 +37,8 @@ Color _getBorderColor(String kindOfWork) {
   }
 }
 
-class _ExpandableLessonState extends State<ExpandableLesson> with AutomaticKeepAliveClientMixin {
+class _ExpandableLessonState extends State<ExpandableLesson>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
   bool _isExpanded = true;
@@ -53,7 +54,7 @@ class _ExpandableLessonState extends State<ExpandableLesson> with AutomaticKeepA
     weekday1 = '${weekday1[0].toUpperCase()}${weekday1.substring(1)}';
     return Card(
       //margin: const EdgeInsets.all(8.0),
-      margin : const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       color: Colors.grey[850],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
@@ -76,8 +77,10 @@ class _ExpandableLessonState extends State<ExpandableLesson> with AutomaticKeepA
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16.0),
                   topRight: Radius.circular(16.0),
-                  bottomLeft: _isExpanded ? Radius.circular(0) : Radius.circular(16.0),
-                  bottomRight: _isExpanded ? Radius.circular(0) : Radius.circular(16.0),
+                  bottomLeft:
+                      _isExpanded ? Radius.circular(0) : Radius.circular(16.0),
+                  bottomRight:
+                      _isExpanded ? Radius.circular(0) : Radius.circular(16.0),
                 ),
               ),
               child: Row(
@@ -85,7 +88,8 @@ class _ExpandableLessonState extends State<ExpandableLesson> with AutomaticKeepA
                 children: [
                   // День недели слева с отступом
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0), // Задаем отступ слева
+                    padding: const EdgeInsets.only(
+                        left: 16.0), // Задаем отступ слева
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -100,7 +104,8 @@ class _ExpandableLessonState extends State<ExpandableLesson> with AutomaticKeepA
                   ),
                   // Дата справа с отступом
                   Padding(
-                    padding: const EdgeInsets.only(right: 16.0), // Задаем отступ справа
+                    padding: const EdgeInsets.only(
+                        right: 16.0), // Задаем отступ справа
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
@@ -117,20 +122,28 @@ class _ExpandableLessonState extends State<ExpandableLesson> with AutomaticKeepA
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.all(2.0),),
+          Padding(
+            padding: EdgeInsets.all(2.0),
+          ),
           ClipRRect(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16.0),
               bottomRight: Radius.circular(16.0),
             ),
             child: AnimatedCrossFade(
-              firstChild: _buildLessonsList(), // Содержимое при развернутом состоянии
-              secondChild: Container(), // Пустой контейнер при свернутом состоянии
-              crossFadeState: _isExpanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              firstChild:
+                  _buildLessonsList(), // Содержимое при развернутом состоянии
+              secondChild:
+                  Container(), // Пустой контейнер при свернутом состоянии
+              crossFadeState: _isExpanded
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
               duration: const Duration(milliseconds: 225),
             ),
           ),
-          Padding(padding: EdgeInsets.all(2.0),),
+          Padding(
+            padding: EdgeInsets.all(2.0),
+          ),
         ],
       ),
     );
@@ -158,7 +171,8 @@ class _LessonTile extends StatefulWidget {
   __LessonTileState createState() => __LessonTileState();
 }
 
-class __LessonTileState extends State<_LessonTile> with AutomaticKeepAliveClientMixin {
+class __LessonTileState extends State<_LessonTile>
+    with AutomaticKeepAliveClientMixin {
   bool _isExpanded = false;
 
   @override
@@ -183,20 +197,27 @@ class __LessonTileState extends State<_LessonTile> with AutomaticKeepAliveClient
               '${widget.lesson['discipline']}',
               style: TextStyle(color: Colors.white),
             ),
-            subtitle: Column(children: [
-              Row(children: [
-                Text(
-                  'Аудитория: ${widget.lesson['auditorium']}',
-                  style: TextStyle(color: Colors.white70),
+            subtitle: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Аудитория: ${widget.lesson['auditorium']}' +
+                          '\n${widget.lesson['building']}',
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ],
                 ),
-              ],),
-              Row(children: [
-                Text(
-                  '${widget.lesson['beginLesson']} - ${widget.lesson['endLesson']}',
-                  style: TextStyle(color: Colors.white70),
+                Row(
+                  children: [
+                    Text(
+                      '${widget.lesson['beginLesson']} - ${widget.lesson['endLesson']}',
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ],
                 ),
-              ],),
-            ],),
+              ],
+            ),
             trailing: IconButton(
               icon: Icon(_isExpanded ? Icons.expand_less : Icons.expand_more),
               color: Colors.white,
@@ -215,7 +236,8 @@ class __LessonTileState extends State<_LessonTile> with AutomaticKeepAliveClient
             child: Align(
               alignment: Alignment.bottomCenter,
               child: AnimatedCrossFade(
-                firstChild: Container(), // Пустой контейнер для скрытого состояния
+                firstChild:
+                    Container(), // Пустой контейнер для скрытого состояния
                 secondChild: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(10.0),
@@ -231,7 +253,9 @@ class __LessonTileState extends State<_LessonTile> with AutomaticKeepAliveClient
                     ],
                   ),
                 ),
-                crossFadeState: _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                crossFadeState: _isExpanded
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
                 duration: const Duration(milliseconds: 225),
               ),
             ),
@@ -241,6 +265,7 @@ class __LessonTileState extends State<_LessonTile> with AutomaticKeepAliveClient
     );
   }
 }
+
 class SchedulePage extends StatefulWidget {
   const SchedulePage({Key? key}) : super(key: key);
 
@@ -263,7 +288,8 @@ class _SchedulePageState extends State<SchedulePage> {
     super.initState();
     _pageController = PageController(initialPage: 0, viewportFraction: 1);
     initializeDateFormatting('ru_RU', null).then((_) async {
-      await _fetchScheduleData(0, 0); // Сначала загружаем данные за текущую неделю
+      await _fetchScheduleData(
+          0, 0); // Сначала загружаем данные за текущую неделю
       await _fetchScheduleData(-1, -1); // Затем данные за прошлую неделю
       await _fetchScheduleData(1, 2); // И данные за следующую неделю
       setState(() {
@@ -305,7 +331,8 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   Map<String, DateTime> _calculateStartAndEndDates(int offset) {
-    final startDate = _getStartOfWeek(_startDate.add(Duration(days: 7 * offset)));
+    final startDate =
+        _getStartOfWeek(_startDate.add(Duration(days: 7 * offset)));
     final endDate = _getEndOfWeek(startDate);
     return {'start': startDate, 'end': endDate};
   }
@@ -314,7 +341,8 @@ class _SchedulePageState extends State<SchedulePage> {
     debugPrint('ZAPROS!!!');
     final startDateString = DateFormat('yyyy.MM.dd').format(start);
     final endDateString = DateFormat('yyyy.MM.dd').format(end);
-    return Uri.parse('https://portal.unn.ru/ruzapi/schedule/group/40749?start=$startDateString&finish=$endDateString&lng=1');
+    return Uri.parse(
+        'https://portal.unn.ru/ruzapi/schedule/group/40749?start=$startDateString&finish=$endDateString&lng=1');
   }
 
   Future<http.Response> _fetchDataFromApi(Uri url) async {
@@ -342,13 +370,16 @@ class _SchedulePageState extends State<SchedulePage> {
       //_currentIndexByWeek++;
     } else {
       _minusCurrentIndextByWeek();
-                  _minusCurrentIndextByWeek();
+      _minusCurrentIndextByWeek();
       _scheduleData.insert(0, groupedData);
       _currentLeft--;
       //_currentIndexByWeek--;
       _pageController.jumpToPage(_currentIndex + 1);
     }
-    debugPrint("DATA: left: " + _currentLeft.toString() + " | right: " + _currentRight.toString());
+    debugPrint("DATA: left: " +
+        _currentLeft.toString() +
+        " | right: " +
+        _currentRight.toString());
   }
 
   Map<String, dynamic> _groupDataByDate(List data) {
@@ -368,7 +399,7 @@ class _SchedulePageState extends State<SchedulePage> {
     setState(() {
       _currentIndex = index;
     });
-    
+
     // Проверяем, что страница успешно просвайпана
     if (index != _currentIndex) return;
     // if (index > _currentIndexByWeek) {
@@ -411,17 +442,20 @@ class _SchedulePageState extends State<SchedulePage> {
                 IconButton(
                   onPressed: () {
                     // Всегда позволяем пользователю свайпать влево
-                    _pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    _pageController.previousPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut);
                     // Если мы находимся на первой странице, загружаем данные за предыдущую неделю
                     //if (_currentIndex == 0) {
-                      //_fetchScheduleData(_currentLeft - 1, 0);
-                      //_minusCurrentIndextByWeek(); // Уменьшаем индекс недели
+                    //_fetchScheduleData(_currentLeft - 1, 0);
+                    //_minusCurrentIndextByWeek(); // Уменьшаем индекс недели
                     //}
                   },
                   icon: const Icon(Icons.arrow_back_ios),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 42, 42, 42),
                     borderRadius: BorderRadius.circular(20.0),
@@ -433,12 +467,14 @@ class _SchedulePageState extends State<SchedulePage> {
                 ),
                 IconButton(
                   onPressed: () {
-                          _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-                          //if (_currentIndex == _scheduleData.length - 1) {
-                            //_fetchScheduleData(_currentRight + 1, _scheduleData.length);
-                            //_plusCurrentIndexByWeek();
-                          //}
-                        },
+                    _pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut);
+                    //if (_currentIndex == _scheduleData.length - 1) {
+                    //_fetchScheduleData(_currentRight + 1, _scheduleData.length);
+                    //_plusCurrentIndexByWeek();
+                    //}
+                  },
                   icon: const Icon(Icons.arrow_forward_ios),
                 ),
               ],
@@ -448,11 +484,11 @@ class _SchedulePageState extends State<SchedulePage> {
             child: PageView.builder(
               controller: _pageController,
               onPageChanged: (int index) {
-                if (index == 0) { // Don`t del
+                if (index == 0) {
+                  // Don`t del
                   //_minusCurrentIndextByWeek();
                   //_minusCurrentIndextByWeek();
-                }
-                else if (index > _currentIndex) {
+                } else if (index > _currentIndex) {
                   _plusCurrentIndexByWeek();
                 } else if (index < _currentIndex) {
                   _minusCurrentIndextByWeek();
