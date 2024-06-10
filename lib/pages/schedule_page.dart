@@ -249,6 +249,22 @@ class __LessonTileState extends State<_LessonTile>
                         'Преподаватель: ${widget.lesson['lecturer']}',
                         style: TextStyle(color: Colors.white70),
                       ),
+                      Text(
+                        'Звание: ' + '${widget.lesson['lecturer_rank']}'.toLowerCase(),
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        'Вид занятия: ${widget.lesson['kindOfWork']}',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        'Поток: ${widget.lesson['stream']}',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        'Мест: ${widget.lesson['auditoriumAmount']}',
+                        style: TextStyle(color: Colors.white70),
+                      )
                       // Дополнительная информация, которую вы хотите отобразить
                     ],
                   ),
