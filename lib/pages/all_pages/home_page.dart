@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unn_mobile/pages/login_page.dart';
-import 'package:unn_mobile/pages/schedule_page.dart';
+import 'package:unn_mobile/pages/all_pages/login_page.dart';
+import 'package:unn_mobile/pages/all_pages/schedule_page.dart';
 
 class HomePage extends StatelessWidget {
   @override

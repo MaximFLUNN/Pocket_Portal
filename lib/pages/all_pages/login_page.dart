@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:unn_mobile/components/my_button.dart';
-import 'package:unn_mobile/components/my_textfield.dart';
-import 'package:unn_mobile/helper/helper_functions.dart';
+import 'package:unn_mobile/components/import_network_handler.dart';
+import 'package:unn_mobile/components/ui_toolkit/my_button.dart';
+import 'package:unn_mobile/components/ui_toolkit/my_textfield.dart';
+import 'package:unn_mobile/helper/helper_functions/helper_functions.dart';
 import 'package:http/http.dart' as http;
-import 'package:unn_mobile/pages/page_view_test.dart';
-import 'package:unn_mobile/pages/schedule_page.dart';
+import 'package:unn_mobile/pages/all_pages/page_view_test.dart';
+import 'package:unn_mobile/pages/all_pages/schedule_page.dart';
+import 'package:unn_mobile/components/network_handler/api_endpoints.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -30,7 +32,13 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    final url = Uri.parse('https://portal.unn.ru/ruzapi/schedule/group/40749?start=2024.06.03&finish=2024.06.09&lng=1');
+    final networkHandler = NetworkHandler();
+    final queryParams = {
+      'start': '2024.06.03',
+      'finish': '2024.06.09',
+      'lng': '1'
+    };
+    //final url = Uri.parse('https://portal.unn.ru/ruzapi/schedule/group/40749?start=2024.06.03&finish=2024.06.09&lng=1');
     //final url = Uri.parse('https://portal.unn.ru/bitrix/vuz/api/marks2/');
     //final url = Uri.parse('https://portal.unn.ru/auth/?login=yes');
     final login = loginController.text;
@@ -39,38 +47,52 @@ class _LoginPageState extends State<LoginPage> {
     final authString = base64Encode(utf8.encode('$login:$password'));
     final headers = {'Authorization': 'Basic $authString'};
 
-    try {
-      final response = await http.get(url, headers: headers);
-      debugPrint(response.body);
-      //debugPrint(response.headers as String?);
-      final responseBody = response.body;
 
-      if (response.statusCode == 200) {
-        if (responseBody.contains('Забыли пароль?')) {
-          if (context.mounted) Navigator.pop(context);
-        // Если в ответе содержится 'Вход в систему', значит данные неверные
-        displayMessageToUser('Login failed!', context);
-        } 
+
+    try {
+      if (queryParams['start'] != null && queryParams['finish'] != null && queryParams['lng'] != null) {
+        final response = await networkHandler.fetchShedule(
+          queryParams['start']!,
+          queryParams['finish']!,
+          queryParams['lng']!,
+          headers
+        );
+
+        final responseBody = response.body;
+
+        if (response.statusCode == 200) {
+          if (responseBody.contains('Забыли пароль?')) {
+            if (context.mounted) Navigator.pop(context);
+          // Если в ответе содержится 'Вход в систему', значит данные неверные
+          displayMessageToUser('Login failed!', context);
+          } 
+          else {
+            if (context.mounted) Navigator.pop(context);
+            // Иначе, авторизация успешна
+            //displayMessageToUser('Login successful!', context);
+            
+            // Переход на страницу расписания и передача JSON-ответа
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SchedulePage(),
+              ),
+              // MaterialPageRoute(
+              //   builder: (context) => const PageViewTest(),
+              // ),
+            );
+          }
+        }
         else {
           if (context.mounted) Navigator.pop(context);
-          // Иначе, авторизация успешна
-          //displayMessageToUser('Login successful!', context);
-          
-          // Переход на страницу расписания и передача JSON-ответа
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SchedulePage(),
-            ),
-            // MaterialPageRoute(
-            //   builder: (context) => const PageViewTest(),
-            // ),
-          );
         }
       }
       else {
-        if (context.mounted) Navigator.pop(context);
+        debugPrint("start, finish or lng == null");
       }
+      //final response = await http.get(url, headers: headers);
+      //debugPrint(response.body);
+      //debugPrint(response.headers as String?);
     } catch (e) {
       // Обработка ошибок
       displayMessageToUser('Error: $e', context);

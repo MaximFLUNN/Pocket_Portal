@@ -357,8 +357,9 @@ class _SchedulePageState extends State<SchedulePage> {
     debugPrint('ZAPROS!!!');
     final startDateString = DateFormat('yyyy.MM.dd').format(start);
     final endDateString = DateFormat('yyyy.MM.dd').format(end);
+    final lang = 1;
     return Uri.parse(
-        'https://portal.unn.ru/ruzapi/schedule/group/40749?start=$startDateString&finish=$endDateString&lng=1');
+        'https://portal.unn.ru/ruzapi/schedule/group/40749?start=$startDateString&finish=$endDateString&lng=$lang');
   }
 
   Future<http.Response> _fetchDataFromApi(Uri url) async {
